@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.robertomiranda.countdown.R
+import com.google.android.material.textview.MaterialTextView
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 
 class CreateEventFragment : Fragment() {
@@ -22,12 +21,22 @@ class CreateEventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
         binding = FragmentCreateEventBinding.inflate(inflater)
 
         return with(binding) {
             vm = viewModel
+            setUpListeners()
             root
+        }
+    }
+
+    private fun setUpListeners() {
+        binding.datePicker.setOnClickListener {
+            showDatePicker(parentFragmentManager) { date -> (it as MaterialTextView).text = date }
+        }
+
+        binding.timePicker.setOnClickListener {
+            showTimePicker(it.context) { time -> (it as TextView).text = time }
         }
     }
 }
