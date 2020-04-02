@@ -1,4 +1,7 @@
 package com.robertomiranda.countdown.createevent
 
-class CreateEventViewModel {
+import androidx.lifecycle.ViewModel
+
+class CreateEventViewModel : ViewModel() {
+
 }
