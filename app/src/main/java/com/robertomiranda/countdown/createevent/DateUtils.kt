@@ -18,7 +18,7 @@ fun showTimePicker(context: Context, onTimeSelectedAction: (time: String) -> Uni
     }
 
     val picker = TimePickerDialog(context, { _, hourOfDay, minute ->
-        onTimeSelectedAction(String.format("%d : %d", hourOfDay, minute))
+        onTimeSelectedAction(String.format("%02d : %02d", hourOfDay, minute))
     }, hour, minutes, true)
 
     picker.show()
@@ -27,11 +27,12 @@ fun showTimePicker(context: Context, onTimeSelectedAction: (time: String) -> Uni
 fun showDatePicker(fragmentManager: FragmentManager, onDateSelectedAction: (date: String) -> Unit) {
 
     val calendar = Calendar.getInstance()
-    val dateFormat = SimpleDateFormat("dd/MM/YYY", Locale.getDefault())
+    val dateFormat = SimpleDateFormat("MM-dd-YYYY", Locale.getDefault())
     MaterialDatePicker.Builder.datePicker()
         .build().apply {
             addOnPositiveButtonClickListener { timeInMilliSeconds ->
                 calendar.timeInMillis = timeInMilliSeconds
+                calendar.add(Calendar.DATE, 1)
                 onDateSelectedAction(dateFormat.format(calendar.time))
             }
         }

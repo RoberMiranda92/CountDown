@@ -7,4 +7,6 @@
     <color name="colorBackground">@color/white</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#bdbdbd</color>
 </resources>
