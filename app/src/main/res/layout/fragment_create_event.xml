@@ -8,6 +8,9 @@
         <variable
             name="vm"
             type="com.robertomiranda.countdown.createevent.CreateEventViewModel" />
+
+        <import type="android.text.TextUtils" />
+
     </data>
 
 
@@ -15,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_primary_background"
-        android:padding="10dp"
+        android:padding="@dimen/default_margin"
         tools:context=".createevent.CreateEventFragment">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -29,10 +32,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditText.Big"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/EditText.Big"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:text="@={vm.eventName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -40,11 +44,11 @@
             style="@style/TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:hint="@string/create_event_event_date"
-            android:minHeight="@dimen/minTappableSize"
+            android:minHeight="@dimen/min_tappable_size"
             app:layout_constraintEnd_toStartOf="@id/time_picker_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/event_name_container">
@@ -54,7 +58,8 @@
                 style="@style/EditText.Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false" />
+                android:cursorVisible="false"
+                android:text="@={vm.eventDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -62,12 +67,12 @@
             style="@style/TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
             android:background="@color/white"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:hint="@string/create_event_event_time"
-            android:minHeight="@dimen/minTappableSize"
+            android:minHeight="@dimen/min_tappable_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_picker_container"
             app:layout_constraintTop_toBottomOf="@id/event_name_container">
@@ -77,14 +82,17 @@
                 style="@style/EditText.Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:cursorVisible="false" />
+                android:cursorVisible="false"
+                android:text="@={vm.eventTime}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:minHeight="@dimen/minTappableSize"
+            android:layout_marginTop="@dimen/default_margin"
+            android:enabled="@{!vm.eventName.empty &amp; !vm.eventDate.empty}"
+            android:minHeight="@dimen/min_tappable_size"
             android:text="@string/create_event_event_start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

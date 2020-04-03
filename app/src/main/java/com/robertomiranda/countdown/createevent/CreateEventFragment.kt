@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 
 class CreateEventFragment : Fragment() {
@@ -25,6 +24,7 @@ class CreateEventFragment : Fragment() {
 
         return with(binding) {
             vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
             setUpListeners()
             root
         }
@@ -41,6 +41,10 @@ class CreateEventFragment : Fragment() {
             showTimePicker(it.context) { time ->
                 (it as TextInputEditText).setText(time)
             }
+        }
+
+        binding.startButton.setOnClickListener {
+            viewModel.startEvent()
         }
     }
 }
