@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
+import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
+import com.robertomiranda.countdown.extensions.removeErrorOnTyping
 
 class CreateEventFragment : Fragment() {
-
 
     private lateinit var binding: FragmentCreateEventBinding
     private val viewModel: CreateEventViewModel by viewModels { ViewModelFactory.getInstance() }
@@ -26,6 +28,8 @@ class CreateEventFragment : Fragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             setUpListeners()
+            configureViews()
+            observeViewModelChanges()
             root
         }
     }
@@ -42,9 +46,18 @@ class CreateEventFragment : Fragment() {
                 (it as TextInputEditText).setText(time)
             }
         }
-
         binding.startButton.setOnClickListener {
             viewModel.startEvent()
         }
+    }
+
+    private fun configureViews() {
+        binding.eventNameContainer.removeErrorOnTyping()
+    }
+
+    private fun observeViewModelChanges() {
+        viewModel.eventNameError.observe(viewLifecycleOwner, Observer {
+            binding.eventNameContainer.error = getString(R.string.create_event_event_name_error)
+        })
     }
 }
