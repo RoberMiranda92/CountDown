@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.robertomiranda.countdown.extensions.toDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,7 +19,7 @@ fun showTimePicker(context: Context, onTimeSelectedAction: (time: String) -> Uni
     }
 
     val picker = TimePickerDialog(context, { _, hourOfDay, minute ->
-        onTimeSelectedAction(String.format("%02d : %02d", hourOfDay, minute))
+        onTimeSelectedAction(String.format("%02d:%02d", hourOfDay, minute))
     }, hour, minutes, true)
 
     picker.show()
@@ -37,4 +38,11 @@ fun showDatePicker(fragmentManager: FragmentManager, onDateSelectedAction: (date
             }
         }
         .show(fragmentManager, "datePicker")
+}
+
+fun isDateBeforeNow(dateString: String, format: String = "MM-dd-yyyy HH:mm"): Boolean {
+    val date = dateString.toDate(format)
+    val now = Calendar.getInstance().time
+
+    return date?.before(now) == true
 }
