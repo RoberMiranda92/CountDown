@@ -11,11 +11,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 import com.robertomiranda.countdown.extensions.removeErrorOnTyping
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateEventFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateEventBinding
-    private val viewModel: CreateEventViewModel by viewModels { ViewModelFactory.getInstance() }
+    val viewModel: CreateEventViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
