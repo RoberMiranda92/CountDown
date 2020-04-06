@@ -55,5 +55,12 @@
         <item name="android:editable">false</item>
     </style>
 
+    <style name="Body.Big">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 
 </resources>

@@ -1,6 +1,5 @@
 package com.robertomiranda.countdown.createevent
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,12 +23,15 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
     val eventTime: MutableLiveData<String>
         get() = _eventTime
 
+    //Events
+    private val _calculateTimeSuccess = MutableLiveData<EventTime>()
+    val calculateTimeSuccess: LiveData<EventTime>
+        get() = _calculateTimeSuccess
+
     //Errors
     private val _eventNameError = MutableLiveData<Unit>()
     val eventNameError: LiveData<Unit>
         get() = _eventNameError
-
-    //Errors
     private val _dateError = MutableLiveData<Unit>()
     val dateError: LiveData<Unit>
         get() = _dateError
@@ -54,19 +56,18 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
         val nowTime = getNowTime()
 
         evenStartDate?.let {
-            val distanceTime = it.minus(nowTime )
-            onEventTimeCalculated(repository.calculateTime(distanceTime))
+            val distanceTime = it.minus(nowTime)
+            onEventTimeCalculated(repository.calculateTime(distanceTime.toDouble()))
         }
     }
 
     private fun onEventTimeCalculated(calculateTime: EventTime) {
-        Log.d("CreateEventViewModel", calculateTime.toString())
+        _calculateTimeSuccess.postValue(calculateTime)
     }
 
     companion object {
         private const val DEFAULT_TIME = "00:00"
         private const val DEFAULT_DATE_FORMAT = "MM-dd-yyyy HH:mm"
         private const val DEFAULT_EVENT_CHARACTERS = 3
-
     }
 }

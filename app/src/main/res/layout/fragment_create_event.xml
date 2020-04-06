@@ -98,6 +98,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/time_picker_container" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/days"
+            style="@style/Body.Big"
+            android:layout_width="0dp"
+            tools:text = "1"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/hours"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_button" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/hours"
+            style="@style/Body.Big"
+            android:layout_width="0dp"
+            tools:text = "1"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/minutes"
+            app:layout_constraintStart_toEndOf="@id/days"
+            app:layout_constraintTop_toBottomOf="@id/start_button" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/minutes"
+            style="@style/Body.Big"
+            android:layout_width="0dp"
+            tools:text = "1"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/seconds"
+            app:layout_constraintStart_toEndOf="@id/hours"
+            app:layout_constraintTop_toBottomOf="@id/start_button" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/seconds"
+            style="@style/Body.Big"
+            android:layout_width="0dp"
+            tools:text = "1"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/minutes"
+            app:layout_constraintTop_toBottomOf="@id/start_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
