@@ -8,4 +8,21 @@
     <string name="create_event_event_start">Start</string>
     <string name="create_event_event_name_error">Event must contain more than 3 characters</string>
 
+    <plurals name="create_event_days">
+        <item quantity="one">%d \n day</item>
+        <item quantity="other">%d \n days</item>
+    </plurals>
+    <plurals name="create_event_hours">
+        <item quantity="one">%d \n hour</item>
+        <item quantity="other">%d \n hours</item>
+    </plurals>
+    <plurals name="create_event_minutes">
+        <item quantity="one">%d \n minutes</item>
+        <item quantity="other">%d \n minute</item>
+    </plurals>
+    <plurals name="create_event_seconds">
+        <item quantity="one">%d \n second</item>
+        <item quantity="other">%d \n seconds</item>
+    </plurals>
+
 </resources>

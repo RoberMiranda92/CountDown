@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
 import com.robertomiranda.countdown.R
@@ -63,7 +62,34 @@ class CreateEventFragment : Fragment() {
         })
 
         viewModel.dateError.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(),"Error en date", Toast.LENGTH_SHORT ).show()
+            Toast.makeText(requireContext(), "Error en date", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.calculateTimeSuccess.observe(viewLifecycleOwner, Observer { eventTime ->
+            binding.days.text =
+                resources.getQuantityString(
+                    R.plurals.create_event_days,
+                    eventTime.days,
+                    eventTime.days
+                )
+            binding.hours.text =
+                resources.getQuantityString(
+                    R.plurals.create_event_hours,
+                    eventTime.hours,
+                    eventTime.hours
+                )
+            binding.minutes.text =
+                resources.getQuantityString(
+                    R.plurals.create_event_minutes,
+                    eventTime.minutes,
+                    eventTime.minutes
+                )
+            binding.seconds.text =
+                resources.getQuantityString(
+                    R.plurals.create_event_seconds,
+                    eventTime.seconds,
+                    eventTime.seconds
+                )
         })
     }
 }
