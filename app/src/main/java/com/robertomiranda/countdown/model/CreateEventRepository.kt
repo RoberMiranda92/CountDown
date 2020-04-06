@@ -1,18 +1,20 @@
 package com.robertomiranda.countdown.model
 
-import kotlin.math.floor
+import java.util.*
 
 class CreateEventRepository() {
 
-    fun calculateTime(milliseconds: Double): EventTime {
+    fun calculateTime(milliseconds: Long): EventTime {
+        val calendar = Calendar.getInstance()
+        calendar.time = Date(milliseconds)
 
-        val days = floor(milliseconds / (1000 * 60 * 60 * 24))
-        val hours = floor((milliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        val minutes = floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60))
-        val seconds = floor((milliseconds % (1000 * 60)) / 1000)
+        calendar.get(Calendar.MINUTE)
 
         return EventTime(
-            days.toInt(), hours.toInt(), minutes.toInt(), seconds.toInt()
+            calendar.get(Calendar.DAY_OF_YEAR),
+            calendar.get(Calendar.HOUR),
+            calendar.get(Calendar.MINUTE),
+            calendar.get(Calendar.SECOND)
         )
     }
 }
