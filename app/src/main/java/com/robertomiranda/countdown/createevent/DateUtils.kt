@@ -40,6 +40,8 @@ fun showDatePicker(fragmentManager: FragmentManager, onDateSelectedAction: (date
         .show(fragmentManager, "datePicker")
 }
 
+fun getNowTime(): Long = Calendar.getInstance().time.time
+
 fun isDateBeforeNow(dateString: String, format: String = "MM-dd-yyyy HH:mm"): Boolean {
     val date = dateString.toDate(format)
     val now = Calendar.getInstance().time
