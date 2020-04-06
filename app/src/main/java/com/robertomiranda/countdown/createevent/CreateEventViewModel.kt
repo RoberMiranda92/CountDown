@@ -1,6 +1,5 @@
 package com.robertomiranda.countdown.createevent
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -70,6 +69,5 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
         private const val DEFAULT_TIME = "00:00"
         private const val DEFAULT_DATE_FORMAT = "MM-dd-yyyy HH:mm"
         private const val DEFAULT_EVENT_CHARACTERS = 3
-
     }
 }
