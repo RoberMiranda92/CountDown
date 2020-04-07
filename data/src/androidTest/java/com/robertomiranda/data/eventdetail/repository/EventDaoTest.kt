@@ -17,7 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class LocalEventRepositoryTest {
+class EventDaoTest {
 
     private lateinit var database: EventDataBase
     private val testDispatcher = TestCoroutineDispatcher()
@@ -37,6 +37,18 @@ class LocalEventRepositoryTest {
     @After
     fun closeDb() {
         database.close()
+    }
+
+    @Test
+    fun insertAndGetAllEvent() {
+        testScope.runBlockingTest {
+            database.eventDao().insertEvent(EVENT)
+            database.eventDao().insertEvent(EVENT_2)
+
+            val list = database.eventDao().getAllEvents()
+
+            Assert.assertEquals(list, listOf(EVENT, EVENT_2))
+        }
     }
 
     @Test
@@ -66,6 +78,8 @@ class LocalEventRepositoryTest {
     }
 
     companion object {
-        private val EVENT = Event(id = 1, eventName = "Name", createdAt = "1")
+        private val EVENT = Event(id = 1, eventName = "Name_1", createdAt = "1")
+        private val EVENT_2 = Event(id = 2, eventName = "Name_2", createdAt = "1")
+
     }
 }

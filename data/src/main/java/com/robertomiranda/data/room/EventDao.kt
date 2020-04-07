@@ -8,8 +8,11 @@ import com.robertomiranda.data.eventdetail.model.Event
 @Dao
 interface EventDao {
 
-    @Insert()
+    @Insert
     suspend fun insertEvent(event: Event)
+
+    @Query("SELECT * FROM EVENTS")
+    suspend fun getAllEvents(): List<Event>
 
     @Query("SELECT * FROM events WHERE event_id = :id")
     suspend fun getEventById(id: Int): Event
