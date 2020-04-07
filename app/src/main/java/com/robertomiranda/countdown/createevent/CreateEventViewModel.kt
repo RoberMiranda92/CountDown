@@ -3,10 +3,13 @@ package com.robertomiranda.countdown.createevent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.robertomiranda.countdown.extensions.ifEmptyOrNull
 import com.robertomiranda.countdown.extensions.toDate
 import com.robertomiranda.countdown.model.CreateEventRepository
 import com.robertomiranda.countdown.model.EventTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CreateEventViewModel(private val repository: CreateEventRepository) : ViewModel() {
 
@@ -51,13 +54,19 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
             _dateError.postValue(Unit)
             return
         }
-
-        val evenStartDate = "$date $time".toDate(DEFAULT_DATE_FORMAT)?.time
         val nowTime = getNowTime()
+        val evenStartDate = "$date $time".toDate(DEFAULT_DATE_FORMAT)?.time
 
         evenStartDate?.let {
+
             val distanceTime = it.minus(nowTime)
-            onEventTimeCalculated(repository.calculateTime(distanceTime.toDouble()))
+
+            viewModelScope.launch(Dispatchers.Default) {
+
+                repository.startTimer(1000, distanceTime) { distance ->
+                    onEventTimeCalculated(distance)
+                }
+            }
         }
     }
 
