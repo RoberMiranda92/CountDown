@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-
 //From https://www.programming-books.io/essential/android/show-and-hide-floatingactionbutton-on-scroll-5d88aa59a8344fcc8a6ff878fac19388
 // FIX https://stackoverflow.com/questions/42068994/floating-action-button-fab-behavior-stops-onnestedscroll-after-hide
 class ScrollAwareFABBehavior(
@@ -53,5 +52,4 @@ class ScrollAwareFABBehavior(
             dyConsumed, dxUnconsumed, dyUnconsumed, type, consumed
         )
     }
-
 }

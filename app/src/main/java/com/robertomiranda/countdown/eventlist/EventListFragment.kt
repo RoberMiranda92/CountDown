@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentEventListBinding
+import com.robertomiranda.countdown.koin.Scopes
 import com.robertomiranda.countdown.ui.VerticalItemDecorator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
+import org.koin.java.KoinJavaComponent
 
 class EventListFragment : Fragment() {
 
@@ -48,7 +52,9 @@ class EventListFragment : Fragment() {
     }
 
     private fun setUpListeners() {
-
+        binding.createNewEvent.setOnClickListener {
+            findNavController().navigate(EventListFragmentDirections.actionEventListToCreateFragment())
+        }
     }
 
     private fun observeViewModelChanges() {
