@@ -12,10 +12,13 @@ import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 import com.robertomiranda.countdown.extensions.removeErrorOnTyping
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
+import org.koin.java.KoinJavaComponent.getKoin
 
 class CreateEventFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateEventBinding
+    private val createEventScope = getKoin().getOrCreateScope("CreateEvent", named("CreateEvent"))
     val viewModel: CreateEventViewModel by viewModel()
 
     override fun onCreateView(
@@ -49,6 +52,15 @@ class CreateEventFragment : Fragment() {
         }
         binding.startButton.setOnClickListener {
             viewModel.startEvent()
+        }
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.save_event -> {
+                    viewModel.saveEvent()
+                }
+            }
+            true
         }
     }
 
@@ -91,5 +103,10 @@ class CreateEventFragment : Fragment() {
                     eventTime.seconds
                 )
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        createEventScope.close()
     }
 }

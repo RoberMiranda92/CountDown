@@ -8,10 +8,15 @@ import com.robertomiranda.countdown.extensions.ifEmptyOrNull
 import com.robertomiranda.countdown.extensions.toDate
 import com.robertomiranda.countdown.model.CreateEventRepository
 import com.robertomiranda.countdown.model.EventTime
+import com.robertomiranda.data.eventdetail.model.Event
+import com.robertomiranda.data.eventdetail.repository.EventsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CreateEventViewModel(private val repository: CreateEventRepository) : ViewModel() {
+class CreateEventViewModel(
+    private val repository: CreateEventRepository,
+    private val localEventRepository: EventsRepository
+) : ViewModel() {
 
     //DATA
     private val _eventName = MutableLiveData<String>("")
@@ -41,21 +46,13 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
 
 
     fun startEvent() {
-        val name = _eventName.value.ifEmptyOrNull { "" }
-        val date = _eventDate.value.ifEmptyOrNull { "" }
-        val time = _eventTime.value.ifEmptyOrNull { DEFAULT_TIME }
 
-        if (name.length <= DEFAULT_EVENT_CHARACTERS) {
-            _eventNameError.postValue(Unit)
+        if (!checkEventIsvalid()) {
             return
         }
 
-        if (isDateBeforeNow("$date $time", DEFAULT_DATE_FORMAT)) {
-            _dateError.postValue(Unit)
-            return
-        }
         val nowTime = getNowTime()
-        val evenStartDate = "$date $time".toDate(DEFAULT_DATE_FORMAT)?.time
+        val evenStartDate = getEventDate().toDate(DEFAULT_DATE_FORMAT)?.time
 
         evenStartDate?.let {
 
@@ -70,8 +67,48 @@ class CreateEventViewModel(private val repository: CreateEventRepository) : View
         }
     }
 
+    private fun checkEventIsvalid(): Boolean {
+        val name = getEventName()
+        val date = getEventDate()
+
+        if (name.length <= DEFAULT_EVENT_CHARACTERS) {
+            _eventNameError.postValue(Unit)
+            return false
+        }
+
+        if (isDateBeforeNow(date, DEFAULT_DATE_FORMAT)) {
+            _dateError.postValue(Unit)
+            return false
+        }
+
+        return true
+    }
+
+    private fun getEventName() = _eventName.value.ifEmptyOrNull { "" }
+
+    private fun getEventDate(): String {
+        val date = _eventDate.value.ifEmptyOrNull { "" }
+        val time = _eventTime.value.ifEmptyOrNull { DEFAULT_TIME }
+
+        return "$date $time"
+    }
+
     private fun onEventTimeCalculated(calculateTime: EventTime) {
         _calculateTimeSuccess.postValue(calculateTime)
+    }
+
+    fun saveEvent() {
+
+        if (!checkEventIsvalid()) {
+            return
+        }
+
+        viewModelScope.launch {
+
+            val event = Event(eventName = getEventName(), createdAt = getEventDate())
+
+            localEventRepository.insertEvent(event)
+        }
     }
 
     companion object {

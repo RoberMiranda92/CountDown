@@ -1,16 +1,20 @@
 package com.robertomiranda.countdown
 
 import android.app.Application
-import com.robertomiranda.countdown.koin.viewModelModules
 import com.robertomiranda.countdown.koin.repositoryModules
+import com.robertomiranda.countdown.koin.viewModelModules
+import com.robertomiranda.data.DataContextWrapper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class CountDownApplication: Application() {
+class CountDownApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        DataContextWrapper.context = applicationContext
+
         startKoin {
             // Koin Android logger
             androidLogger()

@@ -69,7 +69,7 @@ class EventDaoTest {
 
             database.eventDao().insertEvent(EVENT)
 
-            database.eventDao().deleteEventById(EVENT.id)
+            val deleted = database.eventDao().deleteEventById(EVENT.id)
 
             val inserted = database.eventDao().getEventById(EVENT.id)
 
