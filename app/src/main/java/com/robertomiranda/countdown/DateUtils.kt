@@ -1,4 +1,4 @@
-package com.robertomiranda.countdown.createevent
+package com.robertomiranda.countdown
 
 import android.app.TimePickerDialog
 import android.content.Context

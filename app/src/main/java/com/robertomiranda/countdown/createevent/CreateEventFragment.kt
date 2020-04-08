@@ -12,6 +12,8 @@ import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 import com.robertomiranda.countdown.extensions.removeErrorOnTyping
 import com.robertomiranda.countdown.koin.Scopes
+import com.robertomiranda.countdown.showDatePicker
+import com.robertomiranda.countdown.showTimePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import org.koin.java.KoinJavaComponent.getKoin

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.robertomiranda.countdown.extensions.ifEmptyOrNull
 import com.robertomiranda.countdown.extensions.toDate
+import com.robertomiranda.countdown.getNowTime
+import com.robertomiranda.countdown.isDateBeforeNow
 import com.robertomiranda.countdown.model.CreateEventRepository
 import com.robertomiranda.countdown.model.EventTime
 import com.robertomiranda.data.eventdetail.model.Event
@@ -62,7 +64,11 @@ class CreateEventViewModel(
             return false
         }
 
-        if (isDateBeforeNow(date, DEFAULT_DATE_FORMAT)) {
+        if (isDateBeforeNow(
+                date,
+                DEFAULT_DATE_FORMAT
+            )
+        ) {
             _dateError.postValue(Unit)
             return false
         }
