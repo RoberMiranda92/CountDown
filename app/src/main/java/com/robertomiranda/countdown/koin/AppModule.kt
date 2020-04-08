@@ -1,6 +1,7 @@
 package com.robertomiranda.countdown.koin
 
 import com.robertomiranda.countdown.createevent.CreateEventViewModel
+import com.robertomiranda.countdown.eventlist.EventListViewModel
 import com.robertomiranda.countdown.model.CreateEventRepository
 import com.robertomiranda.data.eventdetail.repository.EventsRepository
 import com.robertomiranda.data.eventdetail.repository.LocalEventRepository
@@ -11,18 +12,18 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 enum class Scopes {
-    CREATE_EVENT
+    EVENTS
 }
 
 val viewModelModules = module {
-    viewModel { CreateEventViewModel(get(), getScope(Scopes.CREATE_EVENT.name).get()) }
+    viewModel { CreateEventViewModel(get(), getScope(Scopes.EVENTS.name).get()) }
+    viewModel { EventListViewModel(getScope(Scopes.EVENTS.name).get()) }
 }
 
 val repositoryModules = module {
     single { CreateEventRepository() }
-    scope(named(Scopes.CREATE_EVENT.name)) {
+    scope(named(Scopes.EVENTS.name)) {
         scoped<EventsRepository> { LocalEventRepository(DaoFactory.getEventDao(androidContext())) }
     }
-
 }
 

@@ -7,21 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 import com.robertomiranda.countdown.extensions.removeErrorOnTyping
-import com.robertomiranda.countdown.koin.Scopes
+import com.robertomiranda.countdown.showDatePicker
+import com.robertomiranda.countdown.showTimePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.qualifier.named
-import org.koin.java.KoinJavaComponent.getKoin
 
 class CreateEventFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateEventBinding
     val viewModel: CreateEventViewModel by viewModel()
-    private val createEventScope =
-        getKoin().getOrCreateScope(Scopes.CREATE_EVENT.name, named(Scopes.CREATE_EVENT.name))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +38,18 @@ class CreateEventFragment : Fragment() {
         }
     }
 
+    private fun configureViews() {
+        binding.eventNameContainer.removeErrorOnTyping()
+        binding.toolbar.title = getString(R.string.create_event_title)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+    }
+
     private fun setUpListeners() {
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.datePicker.setOnClickListener {
             showDatePicker(parentFragmentManager) { date ->
                 (it as TextInputEditText).setText(date)
@@ -64,11 +73,6 @@ class CreateEventFragment : Fragment() {
             }
             true
         }
-    }
-
-    private fun configureViews() {
-        binding.eventNameContainer.removeErrorOnTyping()
-        binding.toolbar.title = getString(R.string.create_event_title)
     }
 
     private fun observeViewModelChanges() {
@@ -110,10 +114,5 @@ class CreateEventFragment : Fragment() {
                     eventTime.seconds
                 )
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        createEventScope.close()
     }
 }

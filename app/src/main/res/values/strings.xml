@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CountDown</string>
 
+    <!--Event List  Screen -->
+    <string name="event_list_title">Event List</string>
+
     <!--Create Event Screen -->
     <string name="create_event_title">Create a new event</string>
     <string name="create_event_event_name">Event Name</string>
@@ -9,8 +12,6 @@
     <string name="create_event_event_start">Start</string>
     <string name="create_event_event_name_error">Event must contain more than 3 characters</string>
     <string name="create_event_event_date_error">Event date is invalid, please check it</string>
-
-
     <plurals name="create_event_days">
         <item quantity="one">%d \n day</item>
         <item quantity="other">%d \n days</item>

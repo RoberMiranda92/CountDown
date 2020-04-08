@@ -33,10 +33,14 @@
     </style>
 
     <style name="Body">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAlignment">gravity</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Body.Big">
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -47,6 +51,7 @@
     <style name="EditText">
         <item name="android:textSize">15sp</item>
     </style>
+
     <style name="EditText.Big">
         <item name="android:textSize">25sp</item>
     </style>
@@ -57,13 +62,6 @@
         <item name="android:clickable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:editable">false</item>
-    </style>
-
-    <style name="Body.Big">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">30sp</item>
-        <item name="android:textAlignment">gravity</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
