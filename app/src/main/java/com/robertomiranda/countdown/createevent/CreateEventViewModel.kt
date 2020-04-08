@@ -44,10 +44,35 @@ class CreateEventViewModel(
     val dateError: LiveData<Unit>
         get() = _dateError
 
+    private fun getEventName() = _eventName.value.ifEmptyOrNull { "" }
+
+    private fun getEventDate(): String {
+        val date = _eventDate.value.ifEmptyOrNull { "" }
+        val time = _eventTime.value.ifEmptyOrNull { DEFAULT_TIME }
+
+        return "$date $time"
+    }
+
+    private fun checkEventIsValid(): Boolean {
+        val name = getEventName()
+        val date = getEventDate()
+
+        if (name.length <= DEFAULT_EVENT_CHARACTERS) {
+            _eventNameError.postValue(Unit)
+            return false
+        }
+
+        if (isDateBeforeNow(date, DEFAULT_DATE_FORMAT)) {
+            _dateError.postValue(Unit)
+            return false
+        }
+
+        return true
+    }
 
     fun startEvent() {
 
-        if (!checkEventIsvalid()) {
+        if (!checkEventIsValid()) {
             return
         }
 
@@ -67,39 +92,13 @@ class CreateEventViewModel(
         }
     }
 
-    private fun checkEventIsvalid(): Boolean {
-        val name = getEventName()
-        val date = getEventDate()
-
-        if (name.length <= DEFAULT_EVENT_CHARACTERS) {
-            _eventNameError.postValue(Unit)
-            return false
-        }
-
-        if (isDateBeforeNow(date, DEFAULT_DATE_FORMAT)) {
-            _dateError.postValue(Unit)
-            return false
-        }
-
-        return true
-    }
-
-    private fun getEventName() = _eventName.value.ifEmptyOrNull { "" }
-
-    private fun getEventDate(): String {
-        val date = _eventDate.value.ifEmptyOrNull { "" }
-        val time = _eventTime.value.ifEmptyOrNull { DEFAULT_TIME }
-
-        return "$date $time"
-    }
-
     private fun onEventTimeCalculated(calculateTime: EventTime) {
         _calculateTimeSuccess.postValue(calculateTime)
     }
 
     fun saveEvent() {
 
-        if (!checkEventIsvalid()) {
+        if (!checkEventIsValid()) {
             return
         }
 
