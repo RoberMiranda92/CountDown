@@ -18,18 +18,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_primary_background"
-        android:padding="@dimen/default_margin"
         tools:context=".createevent.CreateEventFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/create_event_menu"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/event_name_container"
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_activity_margin"
+            android:layout_marginEnd="@dimen/default_activity_margin"
             android:hint="@string/create_event_event_name"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/EditText.Big"
@@ -44,6 +57,7 @@
             style="@style/TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_activity_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -69,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_activity_margin"
             android:background="@color/white"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:hint="@string/create_event_event_time"
@@ -102,41 +117,41 @@
             android:id="@+id/days"
             style="@style/Body.Big"
             android:layout_width="0dp"
-            tools:text = "1"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/hours"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/start_button" />
+            app:layout_constraintTop_toBottomOf="@id/start_button"
+            tools:text="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/hours"
             style="@style/Body.Big"
             android:layout_width="0dp"
-            tools:text = "1"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/minutes"
             app:layout_constraintStart_toEndOf="@id/days"
-            app:layout_constraintTop_toBottomOf="@id/start_button" />
+            app:layout_constraintTop_toBottomOf="@id/start_button"
+            tools:text="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/minutes"
             style="@style/Body.Big"
             android:layout_width="0dp"
-            tools:text = "1"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/seconds"
             app:layout_constraintStart_toEndOf="@id/hours"
-            app:layout_constraintTop_toBottomOf="@id/start_button" />
+            app:layout_constraintTop_toBottomOf="@id/start_button"
+            tools:text="1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/seconds"
             style="@style/Body.Big"
             android:layout_width="0dp"
-            tools:text = "1"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/minutes"
-            app:layout_constraintTop_toBottomOf="@id/start_button" />
+            app:layout_constraintTop_toBottomOf="@id/start_button"
+            tools:text="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
