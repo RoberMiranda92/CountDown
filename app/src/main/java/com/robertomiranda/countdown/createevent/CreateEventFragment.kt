@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.robertomiranda.countdown.R
 import com.robertomiranda.countdown.databinding.FragmentCreateEventBinding
 import com.robertomiranda.countdown.extensions.removeErrorOnTyping
+import com.robertomiranda.countdown.koin.Scopes
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import org.koin.java.KoinJavaComponent.getKoin
@@ -18,8 +19,9 @@ import org.koin.java.KoinJavaComponent.getKoin
 class CreateEventFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateEventBinding
-    private val createEventScope = getKoin().getOrCreateScope("CreateEvent", named("CreateEvent"))
     val viewModel: CreateEventViewModel by viewModel()
+    private val createEventScope =
+        getKoin().getOrCreateScope(Scopes.CREATE_EVENT.name, named(Scopes.CREATE_EVENT.name))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +68,7 @@ class CreateEventFragment : Fragment() {
 
     private fun configureViews() {
         binding.eventNameContainer.removeErrorOnTyping()
+        binding.toolbar.title = getString(R.string.create_event_title)
     }
 
     private fun observeViewModelChanges() {
@@ -74,7 +77,11 @@ class CreateEventFragment : Fragment() {
         })
 
         viewModel.dateError.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "Error en date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.create_event_event_date_error),
+                Toast.LENGTH_SHORT
+            ).show()
         })
 
         viewModel.calculateTimeSuccess.observe(viewLifecycleOwner, Observer { eventTime ->

@@ -18,18 +18,13 @@ abstract class EventDataBase : RoomDatabase() {
 
         fun getInstance(context: Context): EventDataBase =
             INSTANCE ?: synchronized(this) {
-                INSTANCE
-                    ?: buildDatabase(
-                        context
-                    )
-                        .also { INSTANCE = it }
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 EventDataBase::class.java, "Sample.db"
-            )
-                .build()
+            ).fallbackToDestructiveMigration().build()
     }
 }

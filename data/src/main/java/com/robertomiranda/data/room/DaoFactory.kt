@@ -1,10 +1,10 @@
 package com.robertomiranda.data.room
 
-import com.robertomiranda.data.DataContextWrapper
+import android.content.Context
 
 class DaoFactory {
 
     companion object {
-        fun getEventDao() = EventDataBase.getInstance(DataContextWrapper.context).eventDao()
+        fun getEventDao(context: Context) = EventDataBase.getInstance(context).eventDao()
     }
 }

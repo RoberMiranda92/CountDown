@@ -66,5 +66,9 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
+
+    </style>
+
 
 </resources>

@@ -18,9 +18,11 @@ class LocalEventRepository(private var dao: EventDao) : EventsRepository {
         }
     }
 
-    override suspend fun getEventById(id: Int) = withContext(Dispatchers.IO) {
-        dao.getEventById(id)
-    }
+    override suspend fun getEventById(id: Int) =
+        withContext(Dispatchers.IO) {
+            dao.getEventById(id)
+        }
+
     override suspend fun removeEventByID(id: Int) {
         withContext(Dispatchers.IO) {
             dao.deleteEventById(id)
