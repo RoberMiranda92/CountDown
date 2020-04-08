@@ -2,4 +2,8 @@
     <dimen name="default_activity_margin">16dp</dimen>
     <dimen name="min_tappable_size">48dp</dimen>
     <dimen name="default_margin">10dp</dimen>
+
+    <dimen name="spacing">10dp</dimen>
+    <dimen name="spacing_x">15dp</dimen>
+
 </resources>

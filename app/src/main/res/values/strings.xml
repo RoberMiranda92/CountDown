@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">CountDown</string>
 
-
     <!--Event List  Screen -->
-    <string name="event_list_title">Create a new event</string>
+    <string name="event_list_title">Event List</string>
 
     <!--Create Event Screen -->
     <string name="create_event_title">Create a new event</string>
